@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    글 자세히 보기 <br>
+    id : {{article.id}} <br>
+    <h1>{{article.title}}</h1>
+    <p>
+      {% if article.image %}
+      <img src="{{article.image.url}}" alt="이미지" width="200px">
+      {% endif %}
+      <br>
+      {{article.content}}
+    </p>
+    <a href="{% url 'main:index' %}">홈으로</a>
+    <a href="{% url 'article:edit' id=article.id %}">글 수정</a>
+    <a href="{% url 'article:destroy' id=article.id %}">글 삭제</a>
+    <a href="{% url 'article:new_comment' id=article.id %}">댓글 달기</a>
+    <a href="{% url 'article:likes' id=article.id %}"> ♥ {{like_count}}</a>
+
+  {% if messages %}
+  <div>
+      {% for message in messages %}
+          <strong>{{message.tag}}</strong>
+          <ul><li>{{message.message}}</li></ul>
+      {% endfor %}
+  </div>
+  {% endif %}
+  {% for comment in comments %}
+  <hr />
+  <p>{{comment.content}}</p>
+  <p>{{comment.created_at}} 댓글쓴이: {{ comment.author }}</p>
+  <a href="{% url 'article:commentlikes' id=comment.id %}">♥ {{comment.like_user_comment.count}}</a>
+  {% endfor %}
+    
+</body>
+</html>

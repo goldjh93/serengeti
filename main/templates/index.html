@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    메인 페이지 <br>
+
+    {% if user.is_authenticated %}
+      <a href="{% url 'user:signout' %}">로그아웃</a> <br>
+      <a href="{% url 'article:new' %}">글 작성</a>
+    {% else %}
+      <a href="{% url 'user:signin' %}">로그인</a> <br>
+      <a href="{% url 'user:signup' %}">회원가입</a>
+    {% endif %}
+
+    <hr>
+
+    {% for article in articles %}
+      <div>
+        <a href="{% url 'article:detail' id=article.id %}">
+            {{ article.title}} <br>
+            {% if article.image %}
+            <img src="{{article.image.url}}" alt="이미지" width="200px">
+            {% endif %}
+            <br>
+            {{article.content}}
+    
+            {{article.author.username}}
+        </a>
+      <p>  
+        <a href="{% url 'article:edit' id=article.id %}">글 수정</a>
+        <a href="{% url 'article:destroy' id=article.id %}">글 삭제</a>
+        <a href="{% url 'article:likes' id=article.id %}">♥ 좋아요 개</a>
+        {% comment %} 좋아요 개수를 홈화면에서 어떻게 확인?? {% endcomment %}
+        {% comment %} <a href="{% url 'article:likes' id=article.id %}">♥ 좋아요 {{ article_likes[article.id] }}개</a> {% endcomment %}
+      </p>
+      </div>
+    {% endfor %}
+</body>
+</html>
