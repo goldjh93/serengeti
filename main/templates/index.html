@@ -28,15 +28,15 @@
             {% endif %}
             <br>
             {{article.content}}
-    
-            {{article.author.username}}
+            <br>
+            <i>작성자: {{article.author.username}}</i>
         </a>
       <p>  
         <a href="{% url 'article:edit' id=article.id %}">글 수정</a>
         <a href="{% url 'article:destroy' id=article.id %}">글 삭제</a>
-        <a href="{% url 'article:likes' id=article.id %}">♥ 좋아요 개</a>
+        {% comment %} <a href="{% url 'article:likes' id=article.id %}">♥ 좋아요 개</a> {% endcomment %}
         {% comment %} 좋아요 개수를 홈화면에서 어떻게 확인?? {% endcomment %}
-        {% comment %} <a href="{% url 'article:likes' id=article.id %}">♥ 좋아요 {{ article_likes[article.id] }}개</a> {% endcomment %}
+        <a href="{% url 'article:likes' id=article.id %}">♥ 좋아요 {{ article.likes.count }}개</a>
       </p>
       </div>
     {% endfor %}

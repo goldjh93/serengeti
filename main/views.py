@@ -12,9 +12,9 @@ from article.models import Article, Like
 
 def index(request):
     articles = Article.objects.all()
-    article_likes = {}
-    for article in articles:
-        like_count = len(Like.objects.filter(article=article))
-        article_likes[article.id] = like_count
+    # article_likes = {}
+    # for article in articles:
+    #     like_count = len(Like.objects.filter(article=article))
+    #     article_likes[article.id] = like_count
 
-    return render(request, 'index.html', {'articles': articles, 'article_likes': article_likes})
+    return render(request, 'index.html', {'articles': articles})

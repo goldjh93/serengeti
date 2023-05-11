@@ -43,7 +43,7 @@ class Comment(models.Model):
     
 class Like(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True, related_name='likes')
     like_users = models.ForeignKey('user.User', on_delete=models.CASCADE, null=True)
     
     class Meta:
